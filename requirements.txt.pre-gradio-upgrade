@@ -19,5 +19,5 @@ langchain-openai==1.0.0
 langchain-ollama==1.0.0
 
 # UI and logging dependencies - keep existing versions
-gradio==6.5.1
+gradio==4.43.0
 loguru==0.7.2
