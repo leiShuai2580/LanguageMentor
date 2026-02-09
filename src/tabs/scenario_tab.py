@@ -68,8 +68,5 @@ def create_scenario_tab():
             fn=handle_scenario,  # 处理场景聊天的函数
             chatbot=scenario_chatbot,  # 聊天机器人组件
             additional_inputs=scenario_radio,  # 额外输入为场景选择
-            retry_btn=None,  # 不显示重试按钮
-            undo_btn=None,  # 不显示撤销按钮
-            clear_btn="清除历史记录",  # 清除历史记录按钮文本
             submit_btn="发送",  # 发送按钮文本
         )

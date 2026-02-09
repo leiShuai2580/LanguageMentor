@@ -30,8 +30,5 @@ def create_conversation_tab():
         gr.ChatInterface(
             fn=handle_conversation,  # 处理对话的函数
             chatbot=conversation_chatbot,  # 聊天机器人组件
-            retry_btn=None,  # 不显示重试按钮
-            undo_btn=None,  # 不显示撤销按钮
-            clear_btn="清除历史记录",  # 清除历史记录按钮文本
             submit_btn="发送",  # 发送按钮文本
         )
