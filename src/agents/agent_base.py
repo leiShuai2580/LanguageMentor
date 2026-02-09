@@ -1,7 +1,7 @@
 import json
 from abc import ABC, abstractmethod
 
-from langchain_ollama.chat_models import ChatOllama  # 导入 ChatOllama 模型
+from langchain_ollama import ChatOllama  # 更新导入路径以支持 langchain 1.0
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder  # 导入提示模板相关类
 from langchain_core.messages import HumanMessage  # 导入消息类
 from langchain_core.runnables.history import RunnableWithMessageHistory  # 导入带有消息历史的可运行类
