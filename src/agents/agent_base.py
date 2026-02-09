@@ -79,7 +79,7 @@ class AgentBase(ABC):
             session_id = self.session_id
 
         response = self.chatbot_with_history.invoke(
-            [HumanMessage(content=user_input)],  # 将用户输入封装为 HumanMessage
+            {"messages": [HumanMessage(content=user_input)]},  # 将用户输入封装为 HumanMessage
             {"configurable": {"session_id": session_id}},  # 传入配置，包括会话ID
         )
 
