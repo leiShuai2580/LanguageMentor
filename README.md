@@ -42,6 +42,11 @@ https://github.com/user-attachments/assets/6298a8e4-28fc-4a60-badc-59bff16b315e
    conda activate lm
    ```
 
+   或者使用项目提供的激活脚本:
+   ```bash
+   ./activate_env.sh
+   ```
+
 3. **配置开发环境**
    然后运行以下命令安装所需依赖：
    ```bash
