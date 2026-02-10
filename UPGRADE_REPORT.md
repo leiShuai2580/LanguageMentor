@@ -24,6 +24,26 @@ Successfully upgraded LanguageMentor from langchain 0.2.x to 1.0.7 with Python 3
 | gradio | 4.43.0 | 4.43.0 | No change |
 | loguru | 0.7.2 | 0.7.2 | No change |
 
+### Gradio Upgrade (Post-Langchain)
+
+**Issue:** gradio 4.43.0 incompatible with huggingface_hub 1.4.1 after langchain upgrade
+
+**Resolution:** Upgraded gradio to 6.5.1
+
+| Package | Before | After | Reason |
+|---------|--------|-------|--------|
+| gradio | 4.43.0 | 6.5.1 | Fix huggingface_hub compatibility |
+| gradio-client | 1.3.0 | 2.0.3 | Auto-upgraded with gradio |
+
+**Code Changes Required:**
+- Removed deprecated `retry_btn`, `undo_btn`, and `clear_btn` parameters from ChatInterface in 3 files
+
+**Status:** ✅ Complete and functional
+- UI starts successfully
+- All three tabs working
+- Integration tests passing
+- No deprecation warnings
+
 ### Code Changes
 
 **1. Import Path (agent_base.py:4)**

@@ -176,6 +176,34 @@ See langchain release notes:
 - [Langchain 1.0 Migration Guide](https://python.langchain.com/docs/versions/v0_2/)
 - [Langchain-Ollama Documentation](https://python.langchain.com/docs/integrations/chat/ollama/)
 
+## Resolution: Gradio Upgraded to 6.5.1
+
+**Date:** 2026-02-10
+
+The gradio/huggingface_hub compatibility issue has been resolved by upgrading gradio to 6.5.1.
+
+**Change:**
+- gradio: 4.43.0 → 6.5.1
+- gradio-client: 1.3.0 → 2.0.3
+- huggingface_hub: Compatible version maintained (1.4.1)
+
+**Code Changes:**
+Removed deprecated ChatInterface parameters from 3 tab files:
+- `retry_btn=None` (removed - no longer supported)
+- `undo_btn=None` (removed - no longer supported)
+- `clear_btn` (removed - no longer supported)
+
+**Result:**
+- ✅ Application UI now starts successfully
+- ✅ All tabs functional (对话, 场景, 单词)
+- ✅ No deprecation warnings
+- ✅ Backward compatible migration
+
+**Testing:**
+- Integration tests: PASSED
+- No deprecation warnings
+- All agent functionality intact
+
 ## Support
 
 For issues:
