@@ -32,11 +32,6 @@
 | langchain-openai | 0.1.25 | 1.0.0 | 大版本升级 |
 | langchain-ollama | 0.1.3 | 1.0.0 | 大版本升级 |
 | loguru | 0.7.2 | 0.7.2 | 保持不变 |
-
-### 第二阶段：Gradio 升级
-
-| 包名 | 升级前 | 升级后 | 变更原因 |
-|------|--------|--------|----------|
 | gradio | 4.43.0 | 6.5.1 | 修复 huggingface_hub 兼容性 |
 | gradio-client | 1.3.0 | 2.0.3 | 随 gradio 自动升级 |
 | huggingface_hub | 1.4.1 | 1.4.1 | 保持兼容 |
@@ -194,19 +189,11 @@ gr.ChatInterface(
    - `tests/test_integration.py`
 
 2. **文档文件**
-   - `docs/MIGRATION_1.0.md` - Langchain 迁移指南
-   - `docs/plans/2026-02-10-dependency-upgrade.md` - Langchain 升级计划
-   - `docs/plans/2026-02-10-gradio-upgrade-design.md` - Gradio 升级设计
-   - `docs/plans/2026-02-10-gradio-upgrade.md` - Gradio 升级计划
-   - `UPGRADE_REPORT.md` - 升级报告（英文）
-   - `UPGRADE_VERSIONS.md` - 版本详情（英文）
-   - `GRADIO_UPGRADE.md` - Gradio 升级总结（英文）
-   - `UPGRADE.md` - 本文件（中文总结）
+   - `UPGRADE.md` - 本文件（中文升级总结）
 
 3. **辅助文件**
    - `activate_env.sh` - 虚拟环境激活脚本
-   - `requirements.txt.backup` - 原始依赖备份（Langchain 升级前）
-   - `requirements.txt.pre-gradio-upgrade` - Gradio 升级前备份
+
 
 ### 修改文件
 
@@ -258,103 +245,7 @@ gr.ChatInterface(
 
 ---
 
-## 六、Git 提交历史
-
-### Langchain 升级提交（8个）
-
-```
-b81e9b2 - chore: add virtual environment activation script
-9e2e50f - docs: add langchain 1.0.7 migration guide
-1303c90 - test: add integration tests for dependency upgrade
-e43b4e4 - fix: update message invocation pattern for langchain 1.0.7
-5686313 - fix: update ChatOllama parameters for langchain 1.0.7
-9092fda - fix: update langchain_ollama import path for 1.0.7
-363989b - chore: upgrade dependencies to langchain 1.0.7 with Python 3.12
-b51ae73 - docs: add gradio 6.5.1 upgrade design
-```
-
-### Gradio 升级提交（5个）
-
-```
-e646fac - docs: add gradio 6.5.1 upgrade summary report
-eea2d68 - docs: update reports with gradio 6.5.1 upgrade completion
-c652695 - fix: remove deprecated retry_btn, undo_btn, and clear_btn from ChatInterface
-1e4490b - chore: upgrade gradio from 4.43.0 to 6.5.1
-b51ae73 - docs: add gradio 6.5.1 upgrade design
-```
-
-**总提交数：** 13 个
-
----
-
-## 七、启动应用程序
-
-### 激活虚拟环境
-
-**方式一：标准方式**
-```bash
-source venv/bin/activate
-```
-
-**方式二：使用激活脚本**
-```bash
-./activate_env.sh
-```
-
-### 启动应用
-
-```bash
-python src/main.py
-```
-
-### 访问应用
-
-在浏览器中打开：`http://localhost:7860`
-
-### 运行测试
-
-```bash
-python tests/test_integration.py
-```
-
----
-
-## 八、回滚方案
-
-如果发现严重问题需要回滚：
-
-### 方案一：恢复到 Langchain 升级前
-
-```bash
-# 恢复原始依赖
-cp requirements.txt.backup requirements.txt
-
-# 重新安装旧版本
-rm -rf venv
-python3.10 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-
-# 回滚代码更改
-git revert HEAD~13  # 回滚全部 13 个提交
-```
-
-### 方案二：仅回滚 Gradio 升级
-
-```bash
-# 恢复 Gradio 升级前的依赖
-cp requirements.txt.pre-gradio-upgrade requirements.txt
-
-# 重新安装
-venv/bin/pip install -r requirements.txt
-
-# 回滚 Gradio 相关提交
-git revert HEAD~5  # 回滚最近 5 个 Gradio 提交
-```
-
----
-
-## 九、升级收益
+## 六、升级收益
 
 ### 兼容性
 - ✅ 所有依赖现在能够协同工作
@@ -380,57 +271,16 @@ git revert HEAD~5  # 回滚最近 5 个 Gradio 提交
 
 ---
 
-## 十、验证命令
-
-### 检查版本
-
-```bash
-# Python 版本
-python --version
-
-# Langchain 版本
-venv/bin/pip show langchain | grep Version
-
-# Gradio 版本
-venv/bin/pip show gradio | grep Version
-```
-
-### 测试导入
-
-```bash
-# 测试 Langchain 导入
-venv/bin/python -c "import langchain; print(langchain.__version__)"
-
-# 测试 Gradio 导入
-venv/bin/python -c "import gradio; print(gradio.__version__)"
-```
-
-### 运行集成测试
-
-```bash
-venv/bin/python tests/test_integration.py
-```
-
-### 启动应用程序
-
-```bash
-venv/bin/python src/main.py
-```
-
----
-
-## 十一、总结
+## 七、总结
 
 ### 升级状态
-✅ **两次升级均已成功完成**
+✅ **升级成功完成**
 
 ### 关键成就
 - ✅ 依赖升级无冲突
 - ✅ 识别并修复所有破坏性更改
 - ✅ 创建集成测试并通过
 - ✅ 提供完整文档
-- ✅ 为开发人员提供便捷的激活脚本
-- ✅ 记录回滚方案
 - ✅ UI 完全正常运行
 
 ### 技术栈现状
@@ -440,49 +290,3 @@ LanguageMentor 现在运行在：
 - **Langchain 1.0.7** - 改进的 API 和性能
 - **Gradio 6.5.1** - 现代 UI 框架
 - **所有依赖兼容** - 稳定的生态系统
-
-### 后续建议
-
-1. **部署** - 可以部署到生产环境
-2. **监控** - 监控运行时性能和错误
-3. **文档** - 与团队分享迁移经验
-4. **更新** - 定期检查依赖更新
-
----
-
-## 十二、参考文档
-
-### 迁移指南
-- `docs/MIGRATION_1.0.md` - Langchain 1.0.7 迁移指南（英文）
-
-### 实施计划
-- `docs/plans/2026-02-10-dependency-upgrade.md` - Langchain 升级计划
-- `docs/plans/2026-02-10-gradio-upgrade.md` - Gradio 升级计划
-
-### 升级报告
-- `UPGRADE_REPORT.md` - 完整升级报告（英文）
-- `GRADIO_UPGRADE.md` - Gradio 升级总结（英文）
-- `UPGRADE_VERSIONS.md` - 版本详细信息（英文）
-- `UPGRADE.md` - 本文件（中文总结）
-
-### 外部链接
-- [Langchain 1.0 迁移指南](https://python.langchain.com/docs/versions/v0_2/)
-- [Langchain-Ollama 文档](https://python.langchain.com/docs/integrations/chat/ollama/)
-- [Gradio 6.x 变更日志](https://github.com/gradio-app/gradio/releases)
-- [Gradio ChatInterface 文档](https://www.gradio.app/docs/chatinterface)
-
----
-
-## 十三、联系支持
-
-如有问题或建议：
-1. 查阅本升级总结
-2. 查看 Langchain 1.0 和 Gradio 6.x 文档
-3. 检查项目集成测试
-4. 在 GitHub 提交 issue 并附上测试结果
-
----
-
-**文档版本：** 1.0
-**最后更新：** 2026-02-10
-**维护者：** LanguageMentor 开发团队
