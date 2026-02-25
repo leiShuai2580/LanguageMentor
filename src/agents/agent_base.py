@@ -1,7 +1,7 @@
 import json
 from abc import ABC, abstractmethod
 
-from langchain_ollama.chat_models import ChatOllama  # 导入 ChatOllama 模型
+from langchain_ollama import ChatOllama  # 更新导入路径以支持 langchain 1.0
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder  # 导入提示模板相关类
 from langchain_core.messages import HumanMessage  # 导入消息类
 from langchain_core.runnables.history import RunnableWithMessageHistory  # 导入带有消息历史的可运行类
@@ -57,7 +57,7 @@ class AgentBase(ABC):
         # 初始化 ChatOllama 模型，配置参数
         self.chatbot = system_prompt | ChatOllama(
             model="llama3.1:8b-instruct-q8_0",  # 使用的模型名称
-            max_tokens=8192,  # 最大生成的 token 数
+            num_predict=8192,  # 最大生成的 token 数
             temperature=0.8,  # 随机性配置
         )
 
@@ -79,7 +79,7 @@ class AgentBase(ABC):
             session_id = self.session_id
 
         response = self.chatbot_with_history.invoke(
-            [HumanMessage(content=user_input)],  # 将用户输入封装为 HumanMessage
+            {"messages": [HumanMessage(content=user_input)]},  # 将用户输入封装为 HumanMessage
             {"configurable": {"session_id": session_id}},  # 传入配置，包括会话ID
         )
 

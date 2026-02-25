@@ -35,11 +35,16 @@ https://github.com/user-attachments/assets/6298a8e4-28fc-4a60-badc-59bff16b315e
 2. **创建 Python 虚拟环境**
    使用 miniconda 或类似 Python 虚拟环境管理工具，创建一个项目专属的环境，取名为`lm`：
    ```bash
-   conda create -n lm python=3.10
+   conda create -n lm python=3.12
    ```
    激活虚拟环境
    ```bash
    conda activate lm
+   ```
+
+   或者使用项目提供的激活脚本:
+   ```bash
+   ./activate_env.sh
    ```
 
 3. **配置开发环境**
